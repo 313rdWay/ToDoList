@@ -15,14 +15,14 @@ struct CreateNewListView: View {
 
     var body: some View {
         Spacer()
-        RoundedRectangle(cornerRadius: 50)
-            .fill(.white)
-            .shadow(radius: 30)
-            .edgesIgnoringSafeArea(.bottom)
-            .frame(height: UIScreen.main.bounds.height * 0.5)
-            .overlay(
+//        RoundedRectangle(cornerRadius: 50)
+//            .fill(.white)
+//            .shadow(radius: 30)
+//            .edgesIgnoringSafeArea(.bottom)
+//            .frame(height: UIScreen.main.bounds.height * 0.5)
+//            .overlay(
                 VStack {
-                    Spacer()
+//                    Spacer()
                     HStack {
                         Text("List Name")
                             .font(.custom("Tektur-medium", size: 21))
@@ -87,7 +87,7 @@ struct CreateNewListView: View {
                             })
                         )
                 }
-            )
+//            )
     }
 }
 

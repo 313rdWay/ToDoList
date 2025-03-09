@@ -14,43 +14,59 @@ struct CreateNewTaskView: View {
     @State private var startTime: String = ""
     @State private var endTime: String = ""
     
+    @State var showCreateListScreen: Bool = false
+    
     var body: some View {
-        Spacer()
-        RoundedRectangle(cornerRadius: 50)
-            .fill(.white)
-            .shadow(radius: 30)
-            .edgesIgnoringSafeArea(.bottom)
-            .frame(height: UIScreen.main.bounds.height * 0.5)
-            .overlay(
-                VStack {
-                    HStack {
-                        Text("Task Name")
-                            .font(.custom("Tektur-medium", size: 21))
-                            .padding(.leading, 30)
-                        Spacer()
-                    }
-                    RoundedRectangle(cornerRadius: 13)
-                        .fill(.gray)
-                        .frame(width: 362, height: 34)
-                        .overlay(
-                            TextField("Name of your task", text: $taskName)
+//        Spacer()
+//        RoundedRectangle(cornerRadius: 50)
+//            .fill(.white)
+//            .shadow(radius: 30)
+//            .edgesIgnoringSafeArea(.bottom)
+//            .frame(height: UIScreen.main.bounds.height * 0.5)
+//            .overlay(
+        VStack {
+            HStack {
+                Text("Task Name")
+                    .font(.custom("Tektur-medium", size: 21))
+                    .padding(.leading, 30)
+                Spacer()
+            }
+            RoundedRectangle(cornerRadius: 13)
+                .fill(.gray)
+                .frame(width: 362, height: 34)
+                .overlay(
+                    TextField("Name of your task", text: $taskName)
                         .padding()
-                    )
-                    
-                    HStack {
-                        Text("List")
-                            .font(.custom("Tektur-medium", size: 21))
-                            .padding(.leading, 30)
-                        Spacer()
-                    }
-                    
-                    RoundedRectangle(cornerRadius: 13)
-                        .fill(.gray)
-                        .frame(width: 362, height: 34)
-                        .overlay(
-                            TextField("Name of your list", text: $listName)
+                )
+            
+            HStack {
+                Text("List")
+                    .font(.custom("Tektur-medium", size: 21))
+                    .padding(.leading, 30)
+                Spacer()
+            }
+            
+            RoundedRectangle(cornerRadius: 13)
+                .fill(.gray)
+                .frame(width: 362, height: 34)
+                .overlay(
+                    TextField("Name of your list", text: $listName)
                         .padding()
-                    )
+                        .overlay(
+                            Button(action: {
+                                showCreateListScreen.toggle()
+                            }, label: {
+                                Spacer()
+                                Image(systemName: "plus")
+                                    .foregroundStyle(.black)
+                                    .padding(.trailing)
+                            })
+                        )
+                    
+                )
+                .sheet(isPresented: $showCreateListScreen) {
+                    CreateNewListView()
+                }
                     
                     HStack {
                         Text("Date")
@@ -104,6 +120,7 @@ struct CreateNewTaskView: View {
                         }
                         .padding(.trailing)
                     }
+                    Spacer()
                     RoundedRectangle(cornerRadius: 40)
                         .frame(width: 374, height: 80)
                         .overlay(
@@ -116,7 +133,8 @@ struct CreateNewTaskView: View {
                             })
                         )
                 }
-            )
+                .padding(.top)
+//            )
     }
 }
 

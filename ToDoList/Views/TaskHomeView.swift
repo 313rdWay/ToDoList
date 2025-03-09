@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TaskHomeView: View {
+    
+    @State var showCreateScreen: Bool = false
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
         LazyVStack(spacing: 20) {
@@ -42,7 +45,7 @@ struct TaskHomeView: View {
         .font(.custom("Tektur-medium", size: 21 ))
     }
         Button {
-            
+            showCreateScreen.toggle()
         } label: {
             Circle()
                 .fill(.black)
@@ -52,6 +55,9 @@ struct TaskHomeView: View {
                         .foregroundStyle(.white)
                         .font(.system(size: 36))
                 )
+        }
+        .sheet(isPresented: $showCreateScreen) {
+            CreateNewTaskView()
         }
     }
 }
