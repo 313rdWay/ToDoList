@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ToDoListApp: App {
+    
+    @EnvironmentObject var colorManager: ColorManager
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(ColorManager())
         }
     }
 }
