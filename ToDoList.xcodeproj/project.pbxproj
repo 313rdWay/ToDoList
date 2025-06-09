@@ -48,16 +48,6 @@
 			path = ToDoList;
 			sourceTree = "<group>";
 		};
-		1E2B8E082D778A5000B3B5F3 /* ToDoListTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ToDoListTests;
-			sourceTree = "<group>";
-		};
-		1E2B8E122D778A5000B3B5F3 /* ToDoListUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ToDoListUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,8 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				1E2B8DF72D778A4E00B3B5F3 /* ToDoList */,
-				1E2B8E082D778A5000B3B5F3 /* ToDoListTests */,
-				1E2B8E122D778A5000B3B5F3 /* ToDoListUITests */,
 				1E2B8DF62D778A4E00B3B5F3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -143,9 +131,6 @@
 			dependencies = (
 				1E2B8E072D778A5000B3B5F3 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				1E2B8E082D778A5000B3B5F3 /* ToDoListTests */,
-			);
 			name = ToDoListTests;
 			packageProductDependencies = (
 			);
@@ -165,9 +150,6 @@
 			);
 			dependencies = (
 				1E2B8E112D778A5000B3B5F3 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				1E2B8E122D778A5000B3B5F3 /* ToDoListUITests */,
 			);
 			name = ToDoListUITests;
 			packageProductDependencies = (
@@ -417,8 +399,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -446,8 +427,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

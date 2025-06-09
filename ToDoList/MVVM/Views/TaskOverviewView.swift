@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
-
 struct TaskOverviewView: View {
     
     @EnvironmentObject var colorManager: ColorManager
+    
+    @State var showEditTaskView = false
     var body: some View {
         ZStack {
             colorManager.backgroundColor
@@ -42,12 +43,15 @@ struct TaskOverviewView: View {
                     .foregroundStyle(.green)
                 
                 HStack {
+                    Spacer()
+                    
                     VStack {
                         Text("Start Time")
                         
                         Text("8:00pm")
                             .foregroundStyle(colorManager.blueGradient)
                     }
+                    Spacer()
                     
                     VStack {
                         Text("Start Time")
@@ -56,15 +60,29 @@ struct TaskOverviewView: View {
                             .foregroundStyle(colorManager.blueGradient)
                     }
                     
+                    Spacer()
+                    
+//                    Image(systemName: "slider.horizontal.2.square")
+//                        .font(.system(size: 35))
+//                        .padding(.leading)
+//
+//                    Spacer()
                 }
+                
                 
                 HStack {
                     Spacer()
-                    
+                    Button {
+                        showEditTaskView.toggle()
+                    } label: {
                     Image(systemName: "slider.horizontal.2.square")
                         .font(.system(size: 35))
+                        .foregroundStyle(colorManager.iconColor)
+                        .padding(.trailing)
+                    }
                 }
-                Spacer()
+                .offset(y: -20)
+//                Spacer()
 
                 .padding(.trailing)
             }

@@ -16,25 +16,18 @@ struct CreateNewListView: View {
     @State private var endTime: String = ""
 
     var body: some View {
-//        Spacer()
-        //        RoundedRectangle(cornerRadius: 50)
-        //            .fill(.white)
-        //            .shadow(radius: 30)
-        //            .edgesIgnoringSafeArea(.bottom)
-        //            .frame(height: UIScreen.main.bounds.height * 0.5)
-        //            .overlay(
         ZStack {
             colorManager.backgroundColor
                 .ignoresSafeArea()
             
         VStack {
-            //                    Spacer()
             HStack {
                 Text("List Name")
                     .font(.custom("Tektur-medium", size: 21))
                     .padding(.leading)
                 Spacer()
             }
+            .padding(.top)
             RoundedRectangle(cornerRadius: 13)
                 .fill(.gray)
                 .frame(width: 362, height: 34)
@@ -102,8 +95,7 @@ struct CreateNewListView: View {
         }
         .padding(.top)
 
-    }
-//            )
+        }
     }
 }
 

@@ -11,11 +11,13 @@ import SwiftUI
 struct ToDoListApp: App {
     
     @EnvironmentObject var colorManager: ColorManager
+    @StateObject private var vm = TaskHomeViewModel()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TaskHomeView()
                 .environmentObject(ColorManager())
+                .environmentObject(vm)
         }
     }
 }

@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-
 struct TaskHomeView: View {
     
     @EnvironmentObject var colorManager: ColorManager
-    @State var showCreateScreen: Bool = false
+    @EnvironmentObject private var vm: TaskHomeViewModel
     
     var body: some View {
         
@@ -20,105 +19,22 @@ struct TaskHomeView: View {
         VStack {
             
             ScrollView(showsIndicators: false) {
+                
                 LazyVStack(spacing: 20) {
-                    Text("Task")
-                        .foregroundStyle(colorManager.blueGradient)
-                        .font(.custom("Tektur-Bold", size: 36))
-                        .padding(.trailing)
-                    
-                    Section(header:
-                                HStack {
-                        Text("School")
-                        
-                        Image(systemName: "graduationcap.circle.fill")
-                        
-                        Spacer()
-                    }
-                        .foregroundStyle(colorManager.blueGradient)
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                        .padding(.leading)
-                    ) {
-                        ForEach(0..<3) { index in
-                            TaskCardView()
-                        }
-                    }
-                    Section(header:
-                                HStack {
-                        Text("Work")
-                        
-                        Image(systemName: "pencil.tip.crop.circle.fill")
-                        
-                        Spacer()
-                    }
-                            .foregroundStyle(colorManager.blueGradient)
-                            .frame(maxWidth: .infinity, alignment: .bottom)
-                            .padding(.leading)
-        
-                    ) {
-                        ForEach(0..<3) { index in
-                            TaskCardView()
-                        }
-                    }
-                    
-                    Section(header:
-                                HStack {
-                        Text("Exercise")
-                        
-                        Image(systemName: "figure.run.circle.fill")
-                        
-                        Spacer()
-                    }
-                        .foregroundStyle(colorManager.blueGradient)
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                        .padding(.leading)
-                            
-                    ) {
-                        ForEach(0..<3) { index in
-                            TaskCardView()
-                        }
-                    }
-                    
-                    Section(header:
-                                HStack {
-                        Text("Travel")
-                        
-                        Image(systemName: "briefcase.circle.fill")
-                            .foregroundStyle(colorManager.blueGradient)
-                        
-                        Spacer()
-                    }
-                        .foregroundStyle(colorManager.blueGradient)
-                        .frame(maxWidth: .infinity, alignment: .bottom)
-                        .padding(.leading)
-                    ) {
-                        ForEach(0..<3) { index in
-                            TaskCardView()
-                        }
-                    }
-                    
-                    
+                    header
+                    content
                 }
                 .frame(alignment: .leading)
-                //                .foregroundStyle(LinearGradient(colors: [Color("blueGradientLight"), Color("blueGradientDark")], startPoint: .top, endPoint: .bottom))
                 .font(.custom("Tektur-medium", size: 21 ))
             }
-            Button {
-                showCreateScreen.toggle()
-            } label: {
-                Circle()
-                    .fill(.white)
-                    .frame(width: 55, height: 55)
-                    .shadow(color: Color("dropShadowColor"), radius: 10, y: 5)
-                    .overlay(
-                        Image(systemName: "plus")
-                            .foregroundStyle(colorManager.blueGradient)
-                            .font(.system(size: 36))
-                    )
-            }
-            .sheet(isPresented: $showCreateScreen) {
-                CreateNewTaskView()
-                    .presentationDetents([/*.height(500)*/.fraction(0.65)])
-                    .presentationDragIndicator(.automatic)
+            addTaskButton
+
+                .sheet(item: $vm.activeSheet) { item in
+                switch item {
+                case .create: createSheet
+                    
+                case .overview: overviewSheet
+                }
             }
         }
     }
@@ -128,4 +44,83 @@ struct TaskHomeView: View {
 #Preview {
     TaskHomeView()
         .environmentObject(ColorManager())
+        .environmentObject(TaskHomeViewModel())
+}
+
+extension TaskHomeView {
+    
+    private var header: some View {
+        Text("Task")
+            .foregroundStyle(colorManager.blueGradient)
+            .font(.custom("Tektur-Bold", size: 36))
+            .padding(.trailing)
+
+    }
+    
+    private var sectionHeader: some View {
+        HStack {
+            Text("School")
+            
+            Image(systemName: "graduationcap.circle.fill")
+            
+            Spacer()
+        }
+        .foregroundStyle(colorManager.blueGradient)
+        .frame(maxWidth: .infinity, alignment: .bottom)
+        .padding(.leading)
+    }
+    
+    private var content: some View {
+        Section(header: sectionHeader) {
+        Button {
+            vm.activeSheet = .overview
+        } label: {
+            VStack {
+                ForEach(0..<3) { index in
+                    TaskCardView()
+                        .foregroundStyle(colorManager.iconColor)
+                        .padding(.bottom, 10)
+                }
+            }
+        }
+            }
+    }
+    
+    private var addTaskButton: some View {
+        Button {
+            vm.activeSheet = .create
+        } label: {
+            Circle()
+                .fill(.white)
+                .frame(width: 55, height: 55)
+                .shadow(color: Color("dropShadowColor"), radius: 10, y: 5)
+                .overlay(
+                    Image(systemName: "plus")
+                        .foregroundStyle(colorManager.blueGradient)
+                        .font(.system(size: 36))
+                )
+        }
+    }
+    
+    private var createSheet: some View {
+        CreateNewTaskView()
+            .presentationDetents([.fraction(0.65)])
+            .presentationDragIndicator(.automatic)
+            .presentationCornerRadius(50)
+
+    }
+    
+    private var overviewSheet: some View {
+        TaskOverviewView()
+            .presentationDetents([.fraction(0.45)])
+            .presentationDragIndicator(.automatic)
+            .presentationCornerRadius(50)
+            .overlay(
+            RoundedRectangle(cornerRadius: 43)
+                .stroke(.green, lineWidth: 10)
+                .offset(y: 32)
+                .frame(width: 390, height: 400)
+        )
+
+    }
 }

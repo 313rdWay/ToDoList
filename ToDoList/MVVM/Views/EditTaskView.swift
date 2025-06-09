@@ -1,13 +1,13 @@
 //
-//  CreateNewTaskView.swift
+//  EditTaskView.swift
 //  ToDoList
 //
-//  Created by Davaughn Williams on 3/8/25.
+//  Created by Davaughn Williams on 4/15/25.
 //
 
 import SwiftUI
 
-struct CreateNewTaskView: View {
+struct EditTaskView: View {
     
     @EnvironmentObject var colorManager: ColorManager
     @State private var taskName: String = ""
@@ -26,7 +26,7 @@ struct CreateNewTaskView: View {
             
         VStack {
             HStack {
-                Text("Task Name")
+                Text("Edit Task Name")
                     .font(.custom("Tektur-medium", size: 21))
                     .padding(.leading)
                 Spacer()
@@ -85,12 +85,6 @@ struct CreateNewTaskView: View {
                         .presentationDetents([/*.height(500)*/.fraction(0.65)])
                         .presentationDragIndicator(.automatic)
                         .presentationCornerRadius(50)
-                        .overlay(
-                        RoundedRectangle(cornerRadius: 43)
-                            .stroke(colorManager.blueGradient, lineWidth: 10)
-                            .offset(y: 32)
-                            .frame(width: 390, height: 555)
-                    )
 
 
                 }
@@ -164,7 +158,7 @@ struct CreateNewTaskView: View {
                 }
                 .padding([.trailing, .bottom])
             }
-//            Spacer()
+            Spacer()
             RoundedRectangle(cornerRadius: 40)
                 .fill(colorManager.blueGradient)
                 .frame(width: 374, height: 80)
@@ -180,42 +174,15 @@ struct CreateNewTaskView: View {
                     })
                 )
                 .padding(.top)
+//            Spacer()
         }
         .padding(/*.top*/)
     }
-//        .border(colorManager.blueGradient, width: 10)
-//        .overlay(
-//        RoundedRectangle(cornerRadius: 43)
-//            .stroke(colorManager.blueGradient, lineWidth: 10)
-//            .offset(y: 5)
-//            .frame(width: 390/*, height: 400*/)
-//    )
-//        .overlay(
-//        RoundedRectangle(cornerRadius: 43)
-//            .stroke(colorManager.blueGradient, lineWidth: 10)
-//            .offset(y: 5)
-//            .frame(width: 390/*, height: 400*/)
-//            .mask(
-//                Rectangle()
-//                    .frame(width: 100, height:50)
-//                    .offset(x: 0, y: 10)
-//            )
-//    )
-        .overlay(
-            RoundedRectangle(cornerRadius: 43)
-                .stroke(colorManager.blueGradient, lineWidth: 10)
-                .padding(5)
-                .mask(
-                    VStack(spacing: 0) {
-                        Rectangle()
-                        Rectangle().frame(height: 50).opacity(0)
-                    }
-                )
-        )
+
     }
 }
 
 #Preview {
-    CreateNewTaskView()
+    EditTaskView()
         .environmentObject(ColorManager())
 }
