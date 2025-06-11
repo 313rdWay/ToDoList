@@ -19,7 +19,7 @@ struct TaskCardView: View {
                         Text("4/11")
                             .font(.custom("Tektur-Regular", size: 14))
                             .padding(.leading)
-                        
+
                         Text("8:00pm")
                             .font(.custom("Tektur-Regular", size: 14))
                             .padding(.leading)
@@ -28,20 +28,15 @@ struct TaskCardView: View {
                         .fill(Color.green)
                         .frame(width: 2, height: 50)
                         .shadow(color: Color.white, radius: 4, y: 2)
-                    
-//                    Divider()
-//                        .frame(width: 2, height: 50) // Thickness of the line
-//                        .background(Color.green) // Line color
-////                        .shadow(radius: 2, y: 1)
-//                        .shadow(color: Color.white.opacity(0.5), radius: 4, y: 2)
+
                     Spacer()
-                    
+
                     Text("Complete homework and finsh science project")
                         .font(.custom("Tektur-Regular", size: 18))
                     Spacer()
                 }
             )
-        
+
     }
 }
 

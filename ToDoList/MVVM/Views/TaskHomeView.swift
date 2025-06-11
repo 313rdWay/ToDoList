@@ -6,38 +6,35 @@
 //
 
 import SwiftUI
+
 struct TaskHomeView: View {
-    
+
     @EnvironmentObject var colorManager: ColorManager
     @EnvironmentObject private var vm: TaskHomeViewModel
-    
+
     var body: some View {
-        
         ZStack {
             colorManager.backgroundColor
                 .ignoresSafeArea()
-        VStack {
-            
-            ScrollView(showsIndicators: false) {
-                
-                LazyVStack(spacing: 20) {
-                    header
-                    content
+            VStack {
+                ScrollView(showsIndicators: false) {
+                    LazyVStack(spacing: 20) {
+                        header
+                        content
+                    }
+                    .frame(alignment: .leading)
+                    .font(.custom("Tektur-medium", size: 21))
                 }
-                .frame(alignment: .leading)
-                .font(.custom("Tektur-medium", size: 21 ))
-            }
-            addTaskButton
+                addTaskButton
+                    .sheet(item: $vm.activeSheet) { item in
+                        switch item {
+                        case .create: createSheet
 
-                .sheet(item: $vm.activeSheet) { item in
-                switch item {
-                case .create: createSheet
-                    
-                case .overview: overviewSheet
-                }
+                        case .overview: overviewSheet
+                        }
+                    }
             }
         }
-    }
     }
 }
 
@@ -48,7 +45,7 @@ struct TaskHomeView: View {
 }
 
 extension TaskHomeView {
-    
+
     private var header: some View {
         Text("Task")
             .foregroundStyle(colorManager.blueGradient)
@@ -56,36 +53,36 @@ extension TaskHomeView {
             .padding(.trailing)
 
     }
-    
+
     private var sectionHeader: some View {
         HStack {
             Text("School")
-            
+
             Image(systemName: "graduationcap.circle.fill")
-            
+
             Spacer()
         }
         .foregroundStyle(colorManager.blueGradient)
         .frame(maxWidth: .infinity, alignment: .bottom)
         .padding(.leading)
     }
-    
+
     private var content: some View {
         Section(header: sectionHeader) {
-        Button {
-            vm.activeSheet = .overview
-        } label: {
-            VStack {
-                ForEach(0..<3) { index in
-                    TaskCardView()
-                        .foregroundStyle(colorManager.iconColor)
-                        .padding(.bottom, 10)
+            Button {
+                vm.activeSheet = .overview
+            } label: {
+                VStack {
+                    ForEach(0..<3) { index in
+                        TaskCardView()
+                            .foregroundStyle(colorManager.iconColor)
+                            .padding(.bottom, 10)
+                    }
                 }
             }
         }
-            }
     }
-    
+
     private var addTaskButton: some View {
         Button {
             vm.activeSheet = .create
@@ -101,7 +98,7 @@ extension TaskHomeView {
                 )
         }
     }
-    
+
     private var createSheet: some View {
         CreateNewTaskView()
             .presentationDetents([.fraction(0.65)])
@@ -109,18 +106,18 @@ extension TaskHomeView {
             .presentationCornerRadius(50)
 
     }
-    
+
     private var overviewSheet: some View {
         TaskOverviewView()
             .presentationDetents([.fraction(0.45)])
             .presentationDragIndicator(.automatic)
             .presentationCornerRadius(50)
             .overlay(
-            RoundedRectangle(cornerRadius: 43)
-                .stroke(.green, lineWidth: 10)
-                .offset(y: 32)
-                .frame(width: 390, height: 400)
-        )
+                RoundedRectangle(cornerRadius: 43)
+                    .stroke(.green, lineWidth: 10)
+                    .offset(y: 32)
+                    .frame(width: 390, height: 400)
+            )
 
     }
 }
