@@ -42,6 +42,16 @@ struct TaskHomeView: View {
     TaskHomeView()
         .environmentObject(ColorManager())
         .environmentObject(TaskHomeViewModel())
+        .environmentObject(
+            TaskViewModel(
+                taskName: "Test Name",
+                listName: "Test List",
+                date: "04/11/25",
+                startTime: "4:00",
+                endTime: "5:00",
+                showCreateListScreen: false
+            )
+        )
 }
 
 extension TaskHomeView {
