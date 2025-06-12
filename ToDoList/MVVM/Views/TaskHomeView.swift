@@ -46,9 +46,9 @@ struct TaskHomeView: View {
             TaskViewModel(
                 taskName: "Test Name",
                 listName: "Test List",
-                date: "04/11/25",
-                startTime: "4:00",
-                endTime: "5:00",
+                date: .now,
+                startTime: .now,
+                endTime: .now,
                 showCreateListScreen: false
             )
         )

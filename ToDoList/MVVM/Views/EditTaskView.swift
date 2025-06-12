@@ -19,18 +19,18 @@ struct EditTaskView: View {
                 .ignoresSafeArea()
 
             VStack {
-                
+
                 taskNameEditSection
-            
+
                 taskListEditSection
-                
+
                 taskDateEditSection
-                
+
                 taskTimeEditSection
-                
+
                 Spacer()
-                
-               createNewTaskButton
+
+                createNewTaskButton
                     .padding(.top)
             }
             .padding()
@@ -42,7 +42,16 @@ struct EditTaskView: View {
 #Preview {
     EditTaskView()
         .environmentObject(ColorManager())
-        .environmentObject(TaskViewModel(taskName: "Test Name", listName: "Test List", date: "04/11/25", startTime: "4:00", endTime: "5:00", showCreateListScreen: false))
+        .environmentObject(
+            TaskViewModel(
+                taskName: "Test Name",
+                listName: "Test List",
+                date: .now,
+                startTime: .now,
+                endTime: .now,
+                showCreateListScreen: false
+            )
+        )
 }
 
 extension EditTaskView {
@@ -69,7 +78,7 @@ extension EditTaskView {
                 )
         }
     }
-    
+
     private var taskListEditSection: some View {
         VStack {
             HStack {
@@ -78,13 +87,13 @@ extension EditTaskView {
                     .padding(.leading)
                 Spacer()
             }
-            
+
             RoundedRectangle(cornerRadius: 13)
                 .fill(.gray)
                 .frame(width: 362, height: 34)
                 .overlay(
                     TextField("Name of your list", text: $vm.listName)
-                    
+
                         .padding()
                 )
                 .overlay(
@@ -96,7 +105,7 @@ extension EditTaskView {
                     HStack {
                         Spacer()
                         Image(systemName: "arrowtriangle.down.fill")
-                        
+
                         Button(
                             action: {
                                 vm.showCreateListScreen.toggle()
@@ -109,7 +118,7 @@ extension EditTaskView {
                         )
                     }
                 )
-            
+
                 .sheet(isPresented: $vm.showCreateListScreen) {
                     CreateNewListView()
                         .presentationDetents([ /*.height(500)*/
@@ -117,11 +126,11 @@ extension EditTaskView {
                         ])
                         .presentationDragIndicator(.automatic)
                         .presentationCornerRadius(50)
-                    
+
                 }
         }
     }
-    
+
     private var taskDateEditSection: some View {
         VStack {
             HStack {
@@ -130,14 +139,12 @@ extension EditTaskView {
                     .padding(.leading)
                 Spacer()
             }
-            
+
             RoundedRectangle(cornerRadius: 13)
                 .fill(.gray)
                 .frame(width: 362, height: 34)
-                .overlay(
-                    TextField("Date of task", text: $vm.date)
-                        .padding()
-                )
+                .overlay(DatePicker("Date", selection: $vm.date, displayedComponents: .date))
+                .labelsHidden()
                 .overlay(
                     RoundedRectangle(cornerRadius: 13)
                         .fill(.clear)
@@ -145,7 +152,7 @@ extension EditTaskView {
                 )
         }
     }
-    
+
     private var taskTimeEditSection: some View {
         HStack {
             VStack {
@@ -159,13 +166,8 @@ extension EditTaskView {
                 RoundedRectangle(cornerRadius: 13)
                     .fill(.gray)
                     .frame(width: 160, height: 34)
-                    .overlay(
-                        TextField(
-                            "Time of start of task",
-                            text: $vm.startTime
-                        )
-                        .padding()
-                    )
+                    .overlay(DatePicker("Start Time", selection: $vm.startTime, displayedComponents: .hourAndMinute))
+                    .labelsHidden()
                     .overlay(
                         RoundedRectangle(cornerRadius: 13)
                             .fill(.clear)
@@ -190,10 +192,8 @@ extension EditTaskView {
                 RoundedRectangle(cornerRadius: 13)
                     .fill(.gray)
                     .frame(width: 160, height: 34)
-                    .overlay(
-                        TextField("Time of end of task", text: $vm.endTime)
-                            .padding()
-                    )
+                    .overlay(DatePicker("End Time", selection: $vm.startTime, displayedComponents: .hourAndMinute))
+                    .labelsHidden()
                     .overlay(
                         RoundedRectangle(cornerRadius: 13)
                             .fill(.clear)
@@ -206,7 +206,7 @@ extension EditTaskView {
             .padding([.trailing, .bottom])
         }
     }
-    
+
     private var createNewTaskButton: some View {
         RoundedRectangle(cornerRadius: 40)
             .fill(colorManager.blueGradient)
@@ -227,4 +227,3 @@ extension EditTaskView {
             )
     }
 }
-

@@ -44,9 +44,9 @@ struct CreateNewTaskView: View {
             TaskViewModel(
                 taskName: "Test Name",
                 listName: "Test List",
-                date: "04/11/25",
-                startTime: "4:00",
-                endTime: "5:00",
+                date: .now,
+                startTime: .now,
+                endTime: .now,
                 showCreateListScreen: false
             )
         )
@@ -150,10 +150,9 @@ extension CreateNewTaskView {
             RoundedRectangle(cornerRadius: 13)
                 .fill(.gray)
                 .frame(width: 362, height: 34)
-                .overlay(
-                    TextField("Date of task", text: $vm.date)
-                        .padding()
-                )
+                .overlay(DatePicker("Date", selection: $vm.date, displayedComponents: .date))
+                .labelsHidden()
+                .frame(width: 362, height: 34)
                 .overlay(
                     RoundedRectangle(cornerRadius: 13)
                         .fill(.clear)
@@ -175,13 +174,9 @@ extension CreateNewTaskView {
                 RoundedRectangle(cornerRadius: 13)
                     .fill(.gray)
                     .frame(width: 160, height: 34)
-                    .overlay(
-                        TextField(
-                            "Time of start of task",
-                            text: $vm.startTime
-                        )
-                        .padding()
-                    )
+                    .overlay(DatePicker("Start Time", selection: $vm.startTime, displayedComponents: .hourAndMinute))
+                    .labelsHidden()
+                
                     .overlay(
                         RoundedRectangle(cornerRadius: 13)
                             .fill(.clear)
@@ -206,13 +201,9 @@ extension CreateNewTaskView {
                 RoundedRectangle(cornerRadius: 13)
                     .fill(.gray)
                     .frame(width: 160, height: 34)
-                    .overlay(
-                        TextField(
-                            "Time of end of task",
-                            text: $vm.endTime
-                        )
-                        .padding()
-                    )
+                    .overlay(DatePicker("Start Time", selection: $vm.startTime, displayedComponents: .hourAndMinute))
+                    .labelsHidden()
+                
                     .overlay(
                         RoundedRectangle(cornerRadius: 13)
                             .fill(.clear)

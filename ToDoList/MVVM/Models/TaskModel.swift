@@ -13,14 +13,17 @@ let colors: [Color] = [.red, .pink, .purple, .blue, .cyan, .green, .yellow, .ora
 let icons: [String] = ["graduationcap.circle.fill", "pencil.tip.crop.circle.fill", "figure.run.circle.fill", "car.circle.fill"]
 
 struct TaskModel {
-    let taskName: String
-    let listName: ListModel
-    let date: String?
-    let startTime: String?
-    let endTime: String?
+    var id: UUID = UUID()
+    var taskName: String
+    var listName: ListModel
+    var date: Date?
+    var startTime: Date?
+    var endTime: Date?
+    var isComplete: Bool
 }
 
 struct ListModel {
+    var id: UUID = UUID()
     let listName: String
     let color: [Color?] = colors
     let icon: Image?

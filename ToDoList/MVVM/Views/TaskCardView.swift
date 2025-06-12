@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct TaskCardView: View {
+    
+    @EnvironmentObject private var vm: TaskViewModel
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 40)
             .fill(Color("cardColor"))
