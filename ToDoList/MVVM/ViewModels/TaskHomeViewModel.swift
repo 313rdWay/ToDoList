@@ -16,6 +16,12 @@ class TaskHomeViewModel: ObservableObject {
         
         var id: Int { hashValue }
     }
+            
+    @Published var tasks: [TaskModel] = []
+    
+    var allTask: [TaskModel] {
+        tasks
+    }
     
     @Published var showCreateScreen: Bool = false
     

@@ -17,22 +17,21 @@ struct TaskHomeView: View {
             colorManager.backgroundColor
                 .ignoresSafeArea()
             VStack {
+                header
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 20) {
-                        header
                         content
                     }
                     .frame(alignment: .leading)
                     .font(.custom("Tektur-medium", size: 21))
                 }
                 addTaskButton
-                    .sheet(item: $vm.activeSheet) { item in
-                        switch item {
-                        case .create: createSheet
-
-                        case .overview: overviewSheet
-                        }
-                    }
+//                    .sheet(item: $vm.activeSheet) { item in
+//                        switch item {
+//                        case .create: createSheet
+//                        case .overview: overviewSheet
+//                        }
+//                    }
             }
         }
     }
@@ -41,17 +40,7 @@ struct TaskHomeView: View {
 #Preview {
     TaskHomeView()
         .environmentObject(ColorManager())
-        .environmentObject(TaskHomeViewModel())
-        .environmentObject(
-            TaskViewModel(
-                taskName: "Test Name",
-                listName: "Test List",
-                date: .now,
-                startTime: .now,
-                endTime: .now,
-                showCreateListScreen: false
-            )
-        )
+        .environmentObject(PreviewData.taskHomeViewModel)
 }
 
 extension TaskHomeView {
@@ -67,7 +56,6 @@ extension TaskHomeView {
     private var sectionHeader: some View {
         HStack {
             Text("School")
-
             Image(systemName: "graduationcap.circle.fill")
 
             Spacer()
@@ -83,8 +71,8 @@ extension TaskHomeView {
                 vm.activeSheet = .overview
             } label: {
                 VStack {
-                    ForEach(0..<3) { index in
-                        TaskCardView()
+                    ForEach(vm.allTask) { task in
+                        TaskCardView(task: task)
                             .foregroundStyle(colorManager.iconColor)
                             .padding(.bottom, 10)
                     }
@@ -109,25 +97,26 @@ extension TaskHomeView {
         }
     }
 
-    private var createSheet: some View {
-        CreateNewTaskView()
-            .presentationDetents([.fraction(0.65)])
-            .presentationDragIndicator(.automatic)
-            .presentationCornerRadius(50)
+//    private var createSheet: some View {
+//        CreateNewTaskView(/*task: TaskModel(taskName: "Complete homework and finsh science project", listName: ListModel(listName: "Test List", icon: nil), isComplete: false)*/)
+//            .presentationDetents([.fraction(0.65)])
+//            .presentationDragIndicator(.automatic)
+//            .presentationCornerRadius(50)
+//
+//    }
+//
+//    private var overviewSheet: some View {
+//        TaskOverviewView()
+//            .presentationDetents([.fraction(0.45)])
+//            .presentationDragIndicator(.automatic)
+//            .presentationCornerRadius(50)
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 43)
+//                    .stroke(.green, lineWidth: 10)
+//                    .offset(y: 32)
+//                    .frame(width: 390, height: 400)
+//            )
+//
+//    }
 
-    }
-
-    private var overviewSheet: some View {
-        TaskOverviewView()
-            .presentationDetents([.fraction(0.45)])
-            .presentationDragIndicator(.automatic)
-            .presentationCornerRadius(50)
-            .overlay(
-                RoundedRectangle(cornerRadius: 43)
-                    .stroke(.green, lineWidth: 10)
-                    .offset(y: 32)
-                    .frame(width: 390, height: 400)
-            )
-
-    }
 }

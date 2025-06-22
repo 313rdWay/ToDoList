@@ -9,40 +9,64 @@ import SwiftUI
 
 struct TaskCardView: View {
     
-    @EnvironmentObject private var vm: TaskViewModel
+    let task: TaskModel
+    @State private var textHeight: CGFloat = 80
     
     var body: some View {
         RoundedRectangle(cornerRadius: 40)
             .fill(Color("cardColor"))
             .shadow(color: Color("dropShadowColor"), radius: 10, x: 0, y: 5)
-            .frame(width: 374, height: 80)
+            .frame(width: 374, height: max(80, min(textHeight + 50, 150)))
+        
             .overlay(
                 HStack {
+                    // Time & Date
                     VStack {
-                        Text("4/11")
-                            .font(.custom("Tektur-Regular", size: 14))
-                            .padding(.leading)
-
-                        Text("8:00pm")
-                            .font(.custom("Tektur-Regular", size: 14))
-                            .padding(.leading)
+                        Text(task.date.formattedDate)
+                        Text(task.startTime.formattedTime)
                     }
+                    .font(.custom("Tektur-Regular", size: 14))
+                    .padding(.leading)
+                    
+                    // Divider
                     Rectangle()
-                        .fill(Color.green)
-                        .frame(width: 2, height: 50)
-                        .shadow(color: Color.white, radius: 4, y: 2)
+                        .fill(task.isComplete ? Color.green : Color.red)
+                        .frame(width: 2)
+                        .frame(minHeight: 50, maxHeight: 120)
+                        .frame(width: 2, height: max(50, min(textHeight + 30, 120)))
 
                     Spacer()
 
-                    Text("Complete homework and finsh science project")
+                    // Task Content
+                    Text(task.taskName)
                         .font(.custom("Tektur-Regular", size: 18))
+                        .multilineTextAlignment(.leading)
+                        .frame(maxHeight: 120)
+                        .lineLimit(6)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .background(
+                            GeometryReader { geo in
+                                Color.clear
+                                    .onAppear {
+                                        textHeight = geo.size.height
+                                    }
+                                    .onChange(of: task.taskName) { oldValue, newValue in
+                                        textHeight = geo.size.height
+                                    }
+                            }
+                        )
+
                     Spacer()
                 }
             )
-
     }
 }
 
 #Preview {
-    TaskCardView()
+    
+    VStack {        
+        TaskCardView(task: PreviewData.sampleTask)
+        
+        TaskCardView(task: PreviewData.completedTask)
+    }
 }
