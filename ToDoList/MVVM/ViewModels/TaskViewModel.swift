@@ -10,33 +10,12 @@ import Foundation
 class TaskViewModel: ObservableObject {
     
     @Published var tasks: [TaskModel] = []
-    
-    
-//    @Published var taskName: String
-//    
-//    @Published var listName: String
-//    
-//    @Published var date: Date = .now
-//    
-//    @Published var startTime: Date = .now
-//    
-//    @Published var endTime: Date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? .now
-//    
-//    @Published var isComplete: Bool = false
-    
-    @Published var showCreateListScreen: Bool = false
-    
-//    init(taskName: String, listName: String, date: Date, startTime: Date, endTime: Date, showCreateListScreen: Bool) {
-//        self.taskName = taskName
-//        self.listName = listName
-//        self.date = date
-//        self.startTime = startTime
-//        self.endTime = endTime
-//        self.showCreateListScreen = showCreateListScreen
-//    }
-    
-    init(task: TaskModel, showCreateListScreen: Bool) {
+        
+    init(task: TaskModel) {
         self.tasks = tasks
-        self.showCreateListScreen = showCreateListScreen
+    }
+    
+    func addTask(_ task: TaskModel) {
+        tasks.append(task)
     }
 }

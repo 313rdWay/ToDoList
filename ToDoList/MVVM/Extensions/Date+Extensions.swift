@@ -19,4 +19,11 @@ extension Date {
         formatter.dateFormat = "h:mm a"
         return formatter.string(from: self)
     }
+    
+    var formattedDate2: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d/yyyy"
+        return formatter.string(from: self)
+    }
+    
 }

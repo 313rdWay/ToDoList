@@ -10,23 +10,15 @@ import SwiftUI
 
 struct PreviewData {
     
-    static let sampleList = ListModel(
-        listName: "School",
-        icon: Image(systemName: "graduation.circle.fill")
-    )
     static let sampleTask = TaskModel(
         taskName: "Complete homework and finsh science project",
-        listName: sampleList,
-        startTime: Date(),
-        endTime: Calendar.current.date(byAdding: .hour, value: 1, to: Date())!,
+        dueTime: Calendar.current.date(byAdding: .hour, value: 1, to: Date())!,
         isComplete: false
     )
     
     static let completedTask = TaskModel(
         taskName: "Complete homework and finsh science project as well as code up the greatest TODO List applications every made to show off to all of the cool folks",
-        listName: sampleList,
-        startTime: Date(),
-        endTime: Calendar.current.date(byAdding: .hour, value: 1, to: Date())!,
+        dueTime: Calendar.current.date(byAdding: .hour, value: 1, to: Date())!,
         isComplete: true
     )
     

@@ -26,12 +26,12 @@ struct TaskHomeView: View {
                     .font(.custom("Tektur-medium", size: 21))
                 }
                 addTaskButton
-//                    .sheet(item: $vm.activeSheet) { item in
-//                        switch item {
-//                        case .create: createSheet
-//                        case .overview: overviewSheet
-//                        }
-//                    }
+                    .sheet(item: $vm.activeSheet) { item in
+                        switch item {
+                        case .create: createSheet
+                        case .overview: overviewSheet
+                        }
+                    }
             }
         }
     }
@@ -53,29 +53,16 @@ extension TaskHomeView {
 
     }
 
-    private var sectionHeader: some View {
-        HStack {
-            Text("School")
-            Image(systemName: "graduationcap.circle.fill")
-
-            Spacer()
-        }
-        .foregroundStyle(colorManager.blueGradient)
-        .frame(maxWidth: .infinity, alignment: .bottom)
-        .padding(.leading)
-    }
-
     private var content: some View {
-        Section(header: sectionHeader) {
-            Button {
-                vm.activeSheet = .overview
-            } label: {
-                VStack {
-                    ForEach(vm.allTask) { task in
-                        TaskCardView(task: task)
-                            .foregroundStyle(colorManager.iconColor)
-                            .padding(.bottom, 10)
-                    }
+        VStack {
+            ForEach(vm.allTask) { task in
+                Button {
+                    vm.selectedTask = task
+                    vm.activeSheet = .overview
+                } label: {
+                    TaskCardView(task: task)
+                        .foregroundStyle(colorManager.iconColor)
+                        .padding(.bottom, 10)
                 }
             }
         }
@@ -97,26 +84,35 @@ extension TaskHomeView {
         }
     }
 
-//    private var createSheet: some View {
-//        CreateNewTaskView(/*task: TaskModel(taskName: "Complete homework and finsh science project", listName: ListModel(listName: "Test List", icon: nil), isComplete: false)*/)
-//            .presentationDetents([.fraction(0.65)])
-//            .presentationDragIndicator(.automatic)
-//            .presentationCornerRadius(50)
-//
-//    }
-//
-//    private var overviewSheet: some View {
-//        TaskOverviewView()
-//            .presentationDetents([.fraction(0.45)])
-//            .presentationDragIndicator(.automatic)
-//            .presentationCornerRadius(50)
-//            .overlay(
-//                RoundedRectangle(cornerRadius: 43)
-//                    .stroke(.green, lineWidth: 10)
-//                    .offset(y: 32)
-//                    .frame(width: 390, height: 400)
-//            )
-//
-//    }
+    private var createSheet: some View {
+        CreateNewTaskView()
+            .presentationDetents([.fraction(0.45)])
+            .presentationDragIndicator(.automatic)
+            .presentationCornerRadius(50)
+            .environmentObject(TaskViewModel(task: TaskModel(taskName: "Sample Task", isComplete: false)))
+            .environmentObject(vm)
 
+    }
+
+    private var overviewSheet: some View {
+        Group {
+            if let selected = vm.selectedTask {
+                TaskOverviewView(task: selected)
+                    .presentationDetents([.fraction(0.305)])
+                    .presentationDragIndicator(.automatic)
+                    .presentationCornerRadius(50)
+                    .environmentObject(PreviewData.taskHomeViewModel)
+                    .environmentObject(vm)
+                //            .overlay(
+                //                RoundedRectangle(cornerRadius: 43)
+                //                    .stroke(.green, lineWidth: 10)
+                //                    .offset(y: 100)
+                //                    .frame(width: 390, height: 400)
+                //            )
+            } else {
+                Text("No task selected")
+            }
+            
+        }
+    }
 }

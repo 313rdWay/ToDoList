@@ -23,6 +23,8 @@ class TaskHomeViewModel: ObservableObject {
         tasks
     }
     
+    @Published var selectedTask: TaskModel?
+    
     @Published var showCreateScreen: Bool = false
     
     @Published var showOverviewScreen: Bool = false

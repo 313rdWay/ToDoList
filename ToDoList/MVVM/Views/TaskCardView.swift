@@ -22,8 +22,8 @@ struct TaskCardView: View {
                 HStack {
                     // Time & Date
                     VStack {
-                        Text(task.date.formattedDate)
-                        Text(task.startTime.formattedTime)
+                        Text(task.dueDate.formattedDate)
+                        Text(task.dueTime.formattedTime)
                     }
                     .font(.custom("Tektur-Regular", size: 14))
                     .padding(.leading)

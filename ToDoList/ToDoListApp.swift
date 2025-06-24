@@ -12,7 +12,7 @@ struct ToDoListApp: App {
 
     @EnvironmentObject var colorManager: ColorManager
     @StateObject private var taskHomeVM = TaskHomeViewModel()
-    @StateObject private var taskVM = TaskViewModel(task: TaskModel(taskName: "Test Task", listName: ListModel(listName: "testName", icon: nil), isComplete: false), showCreateListScreen: false)
+    @StateObject private var taskVM = TaskViewModel(task: TaskModel(taskName: "Test Task", isComplete: false))
     
     var body: some Scene {
         WindowGroup {
